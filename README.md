@@ -27,3 +27,67 @@ where correctly added use:
 ```
 ./result/bin/caddy list-modules  
 ```
+
+# Install Guide
+
+Add caddy-with-modules to you flake inputs and set `specialArgs = inputs;` to make it available to your configs input
+
+```nix
+# flake.nix
+{
+  # ...
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+
+    caddy-with-modules = {
+      url = "github:escherlies/nixos-caddy-with-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+  # ...
+
+  outputs = 
+    {
+      nixosConfigurations = {
+          some-config = nixpkgs.lib.nixosSystem {
+            # Pass all inputs as specialArgs
+            specialArgs = inputs;
+          };
+      };
+    };
+}
+```
+
+Add caddy-with-modules to your input of the config and add the package:
+
+```nix
+{
+  lib,
+  pkgs,
+  config,
+  caddy-with-modules,
+  ...
+}:{
+  # ...
+  config = {
+    # ...
+    services.caddy = {
+      enable = true;
+      package = caddy-with-modules.packages.x86_64-linux.caddy;
+
+      virtualHosts."${config.virtualHost}" = {
+        extraConfig = builtins.readFile ./Caddyfile;
+      };
+    };
+  };
+}
+```
+
+
+You may want to add configuration options, as outlined for example here : https://github.com/pinpox/nixos/blob/f854c869cc6021ab60c4fd221a6aed23cf3469ab/modules/caddy-security/default.nix
+
+# Credits
+
+Thanks to @pinpox and his mad nixos repository https://github.com/pinpox/nixos from where i copy pastad this code :-)
+
+
