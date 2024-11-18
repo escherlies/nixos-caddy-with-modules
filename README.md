@@ -95,6 +95,6 @@ You may want to add configuration options, as outlined for example here : https:
 
 # Credits
 
-Thanks to @pinpox and his mad nixos repository https://github.com/pinpox/nixos from where i copy pastad this code :-)
+Thanks to [@pinpox](https://github.com/pinpox/) and his mad crazy nixos repository https://github.com/pinpox/nixos from where I copy pasta the caddy with modules config 🍝❤️
 
 
