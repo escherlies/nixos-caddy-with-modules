@@ -1,5 +1,5 @@
 {
-  description = "Patched version of Caddy";
+  description = "Custom version of Caddy with modules";
 
   # Nixpkgs / NixOS version to use.
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
