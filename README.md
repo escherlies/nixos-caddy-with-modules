@@ -58,7 +58,7 @@ Add caddy-with-modules to you flake inputs and set `specialArgs = inputs;` to ma
 }
 ```
 
-Add caddy-with-modules to your input of the config and add the package:
+Add caddy-with-modules to your input of the config, add the package and add `AmbientCapabilities`.
 
 ```nix
 {
@@ -71,6 +71,12 @@ Add caddy-with-modules to your input of the config and add the package:
   # ...
   config = {
     # ...
+
+    systemd.services.caddy.serviceConfig = {
+      # https://serverfault.com/a/899964
+      AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+    };
+
     services.caddy = {
       enable = true;
       package = caddy-with-modules.packages.x86_64-linux.caddy;
@@ -82,6 +88,7 @@ Add caddy-with-modules to your input of the config and add the package:
   };
 }
 ```
+
 
 
 You may want to add configuration options, as outlined for example here : https://github.com/pinpox/nixos/blob/f854c869cc6021ab60c4fd221a6aed23cf3469ab/modules/caddy-security/default.nix
