@@ -1,4 +1,4 @@
-# Patched Caddy NixOS flake
+# NixOS Flake for Caddy with Modules 
 
 Caddy's third-party plugins are installed by adding them as import in
 `cmd/caddy/main.go` and compiling caddy. This can be done either using the
